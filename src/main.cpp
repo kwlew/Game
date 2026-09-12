@@ -1,10 +1,10 @@
 // File created by kwlew on 2026-12-09 @ 2:18 AM
 
-#include "game/logger.hpp"
-#include "game/engine.hpp"
+#include "game/kernel/logger.hpp"
+#include "../include/game/kernel/engine.hpp"
 #include "game/config.hpp"
 
-#include <game/colors.hpp>
+#include <../include/game/kernel/colors.hpp>
 
 #include <raylib.h>
 

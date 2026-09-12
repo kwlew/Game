@@ -26,9 +26,9 @@ FetchContent_MakeAvailable(raylib)
 
 add_executable(Game
     src/main.cpp
-    src/window.cpp
-    src/engine.cpp
-    src/logger.cpp
+        src/kernel/window.cpp
+        src/kernel/engine.cpp
+        src/kernel/logger.cpp
 )
 
 target_compile_features(Game PRIVATE cxx_std_23)

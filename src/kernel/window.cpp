@@ -1,6 +1,6 @@
 // File created by kwlew on 2026-12-09 @ 2:30 AM
 
-#include "game/window.hpp"
+#include "../../include/game/kernel/window.hpp"
 
 #include <raylib.h>
 

@@ -1,7 +1,7 @@
 // File created by kwlew on 2026-12-09 @ 3:00 AM
 
-#include "game/engine.hpp"
-#include "game/logger.hpp"
+#include "../../include/game/kernel/engine.hpp"
+#include "game/kernel/logger.hpp"
 
 #include <exception>
 

@@ -1,7 +1,7 @@
 // File created by kwlew on 2026-12-09 @ 3:00 AM
 #pragma once
 
-#include "game/window.hpp"
+#include "window.hpp"
 #include "game/config.hpp"
 
 #include <functional>
