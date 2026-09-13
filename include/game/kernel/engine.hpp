@@ -11,7 +11,7 @@ namespace game {
 
     class Engine {
     public:
-        bool initialize(int width, int height, const char* title, int targetFPS);
+        bool initialize(int width, int height, const char* title, bool resizeable, int targetFPS);
         bool initialize(const WindowSettings& settings, const char* title);
         void shutdown() noexcept;
         [[nodiscard]] bool running() const noexcept;

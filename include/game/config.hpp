@@ -7,6 +7,7 @@ namespace game {
         int height;
         int targetFPS;
         bool showFPS;
+        bool resizeable;
     };
 
     struct GameConfig final {
@@ -18,7 +19,8 @@ namespace game {
             .width = 800,
             .height = 600,
             .targetFPS = 60,
-            .showFPS = true
+            .showFPS = true,
+            .resizeable = true,
         }
     };
 }

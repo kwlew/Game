@@ -1,18 +1,19 @@
 // File created by kwlew on 2026-12-09 @ 3:00 AM
 
-#include "../../include/game/kernel/engine.hpp"
+#include "game/kernel/engine.hpp"
 #include "game/kernel/logger.hpp"
 
 #include <exception>
 
 namespace game {
-    bool Engine::initialize(int width, int height, const char* title, int targetFPS) {
+    bool Engine::initialize(int width, int height, const char* title, bool resizeable, int targetFPS) {
         if (window_) {
             Logger::log(LOG_WARNING, "Engine is already initialized.");
             return false;
         }
 
         try {
+            SetConfigFlags(resizeable ? FLAG_WINDOW_RESIZABLE : 0);
             window_.emplace(width, height, title);
             window_->setTargetFPS(targetFPS);
             Logger::log(
@@ -30,7 +31,7 @@ namespace game {
     }
 
     bool Engine::initialize(const WindowSettings& settings, const char* title) {
-        return initialize(settings.width, settings.height, title, settings.targetFPS);
+        return initialize(settings.width, settings.height, title, settings.resizeable, settings.targetFPS);
     }
 
     void Engine::shutdown() noexcept {

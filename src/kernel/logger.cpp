@@ -1,7 +1,7 @@
 // File created by kwlew on 2026-12-09 @ 6:47 AM
-#include "../../include/game/kernel/logger.hpp"
+#include "game/kernel/logger.hpp"
 
-#include "../../include/game/kernel/ansi.hpp"
+#include "game/kernel/ansi.hpp"
 
 #include <array>
 #include <atomic>

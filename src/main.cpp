@@ -1,17 +1,18 @@
 // File created by kwlew on 2026-12-09 @ 2:18 AM
 
 #include "game/kernel/logger.hpp"
-#include "../include/game/kernel/engine.hpp"
+#include "game/kernel/engine.hpp"
 #include "game/config.hpp"
+#include "game/game/player.hpp"
 
-#include <../include/game/kernel/colors.hpp>
+#include "game/kernel/colors.hpp"
 
 #include <raylib.h>
 
 int main() {
     game::Engine engine;
 
-    // Keep game INFO logs, but suppress Raylib INFO startup noise.
+    // Shut up raylib log.
     game::Logger::init(LOG_INFO, LOG_WARNING);
 
     auto config = game::defaultConfig;
@@ -21,6 +22,7 @@ int main() {
     config.window.height = 600;
     config.window.targetFPS = 120;
     config.window.showFPS = true;
+    config.window.resizeable = true;
 
     game::Logger::log(
         LOG_INFO,
@@ -34,9 +36,18 @@ int main() {
         return -1;
     }
 
+    game::Player player({
+        static_cast<float>(config.window.width) / 2.0F - 16.0F,
+        static_cast<float>(config.window.height) / 2.0F - 16.0F
+    });
+
     while (engine.running()) {
+        player.update(GetFrameTime());
+
         engine.drawFrame([&] {
             ClearBackground(game::colors::menuBackground);
+
+            player.draw();
 
             if (config.window.showFPS) {
                 engine.debugFPS();

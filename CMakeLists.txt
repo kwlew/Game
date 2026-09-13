@@ -29,6 +29,8 @@ add_executable(Game
         src/kernel/window.cpp
         src/kernel/engine.cpp
         src/kernel/logger.cpp
+        src/game/entity.cpp
+        src/game/player.cpp
 )
 
 target_compile_features(Game PRIVATE cxx_std_23)
