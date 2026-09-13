@@ -6,12 +6,8 @@
 
 namespace game {
 
-    enum class EntityType {
-        Player,
-    };
-
+    // Shared traits
     struct EntityDefinition {
-        EntityType type;
         std::string_view name;
 
         float maximumHealth;
@@ -23,18 +19,16 @@ namespace game {
         bool hostile;
     };
 
-    [[nodiscard]] const EntityDefinition& getEntityDefinition(EntityType type);
-
     class Entity {
     public:
-        Entity(EntityType type, Vector2 position);
+        // Subclasses own their definition
+        Entity(const EntityDefinition& definition, Vector2 position);
 
         virtual ~Entity() = default;
 
         virtual void update(float deltaTime);
         virtual void draw() const;
 
-        [[nodiscard]] EntityType type() const noexcept;
         [[nodiscard]] std::string_view name() const noexcept;
         [[nodiscard]] Vector2 position() const noexcept;
         [[nodiscard]] Vector2 velocity() const noexcept;
@@ -49,7 +43,7 @@ namespace game {
         void heal(float amount) noexcept;
 
     protected:
-        const EntityDefinition* definition_;
+        const EntityDefinition& definition_;
 
         Vector2 position_{};
         Vector2 velocity_{};

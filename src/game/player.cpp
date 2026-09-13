@@ -7,8 +7,22 @@
 
 namespace game {
 
+namespace {
+
+    // Player's own definition
+    constexpr EntityDefinition PlayerDefinition{
+        .name = "Player",
+        .maximumHealth = 100.0f,
+        .movementSpeed = 200.0f,
+        .size = {32.0f, 32.0f},
+        .color = {0, 100, 0, 255},
+        .hostile = false
+    };
+
+}
+
     Player::Player(Vector2 position)
-        : Entity(EntityType::Player, position) {}
+        : Entity(PlayerDefinition, position) {}
 
     void Player::update(float deltaTime) {
         Vector2 direction{};
@@ -36,22 +50,30 @@ namespace game {
             direction.y *= inverseLength;
         }
 
-        velocity_.x = direction.x * definition_->movementSpeed;
-        velocity_.y = direction.y * definition_->movementSpeed;
+        velocity_.x = direction.x * definition_.movementSpeed;
+        velocity_.y = direction.y * definition_.movementSpeed;
 
         Entity::update(deltaTime);
 
         const float maximumX = std::max(
             0.0F,
-            static_cast<float>(GetScreenWidth()) - definition_->size.x
+            static_cast<float>(GetScreenWidth()) - definition_.size.x
         );
         const float maximumY = std::max(
             0.0F,
-            static_cast<float>(GetScreenHeight()) - definition_->size.y
+            static_cast<float>(GetScreenHeight()) - definition_.size.y
         );
 
         position_.x = std::clamp(position_.x, 0.0F, maximumX);
         position_.y = std::clamp(position_.y, 0.0F, maximumY);
+    }
+
+    float Player::stamina() const noexcept {
+        return stamina_;
+    }
+
+    float Player::maximumStamina() const noexcept {
+        return kMaximumStamina;
     }
 
 } // namespace game
