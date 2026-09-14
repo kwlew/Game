@@ -29,8 +29,10 @@ add_executable(Game
         src/kernel/window.cpp
         src/kernel/engine.cpp
         src/kernel/logger.cpp
+        src/kernel/bloom.cpp
         src/game/entity.cpp
         src/game/player.cpp
+        src/game/enemy.cpp
 )
 
 target_compile_features(Game PRIVATE cxx_std_23)

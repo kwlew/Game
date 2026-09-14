@@ -4,8 +4,10 @@
 #include "game/kernel/engine.hpp"
 #include "game/config.hpp"
 #include "game/game/player.hpp"
+#include "game/game/enemy.hpp"
 
 #include "game/kernel/colors.hpp"
+#include "game/kernel/bloom.hpp"
 
 #include <raylib.h>
 
@@ -41,14 +43,38 @@ int main() {
         static_cast<float>(config.window.height) / 2.0F - 16.0F
     });
 
+    game::Enemy enemy({
+        static_cast<float>(config.window.width) / 4.0F - 16.0F,
+        static_cast<float>(config.window.height) / 4.0F - 16.0F
+    });
+
+    // Post-process bloom: makes bright/saturated colors (like the
+    // player's) glow. Needs a window/GL context, so it's created after
+    // engine.initialize() and sized to match it.
+    game::Bloom bloom(config.window.width, config.window.height);
+
     while (engine.running()) {
+        if (config.window.resizeable && IsWindowResized()) {
+            bloom.resize(GetScreenWidth(), GetScreenHeight());
+        }
+
         player.update(GetFrameTime());
+        enemy.update(GetFrameTime(), player.position());
 
         engine.drawFrame([&] {
-            ClearBackground(game::colors::menuBackground);
+            // Draw the scene into bloom's off-screen target instead of
+            // straight to the screen, then composite it through the
+            // shader so bright entities (the player) glow.
+            bloom.capture([&] {
+                ClearBackground(game::colors::menuBackground);
 
-            player.draw();
+                player.draw();
+                enemy.draw();
+            });
+            bloom.draw();
 
+            // Drawn after bloom, straight to screen, so UI text stays
+            // crisp instead of also being blurred/glowing.
             if (config.window.showFPS) {
                 engine.debugFPS();
             }

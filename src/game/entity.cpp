@@ -61,6 +61,14 @@ namespace game {
         return definition_.hostile;
     }
 
+    float Entity::getX() const noexcept {
+        return position_.x;
+    }
+
+    float Entity::getY() const noexcept {
+        return position_.y;
+    }
+
     void Entity::setPosition(Vector2 position) noexcept {
         position_ = position;
     }

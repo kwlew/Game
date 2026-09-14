@@ -15,7 +15,9 @@ namespace {
         .maximumHealth = 100.0f,
         .movementSpeed = 200.0f,
         .size = {32.0f, 32.0f},
-        .color = {0, 100, 0, 255},
+        // Bright/saturated so it crosses the bloom shader's brightness
+        // threshold and actually glows (see game::Bloom).
+        .color = {80, 250, 160, 255},
         .hostile = false
     };
 

@@ -37,6 +37,8 @@ namespace game {
         [[nodiscard]] float maximumHealth() const noexcept;
         [[nodiscard]] bool isAlive() const noexcept;
         [[nodiscard]] bool isHostile() const noexcept;
+        [[nodiscard]] float getX() const noexcept;
+        [[nodiscard]] float getY() const noexcept;
 
         void setPosition(Vector2 position) noexcept;
         void damage(float amount) noexcept;
